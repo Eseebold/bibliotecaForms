@@ -25,7 +25,7 @@
             </Items>
         </asp:Menu>
     <asp:Button ID="btncrearUsuario" runat="server" Text="Crear Usuario"  OnClick="btncrearUsuario_Click"/>
-        <asp:GridView DataKeyNames="codigoUsuario" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
+        <asp:GridView DataKeyNames="idCodigo" OnRowCommand="grdv_Usuario_RowCommand" ID="grdv_Usuario" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
             <Columns>
                 <asp:ButtonField CommandName="editUsuario" Text="Editar" ControlStyle-CssClass="btn btn-info">
                     <ControlStyle CssClass="btn btn-info" />
@@ -33,8 +33,8 @@
                 <asp:ButtonField CommandName="deleteUsuario" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
                     <ControlStyle CssClass="btn btn-danger" />
                  </asp:ButtonField>
-                <asp:BoundField DataField="codigoUsuario" Visible="False" />
-                <asp:BoundField DataField="nombreUsuario" HeaderText="Nombre Usuario" Visible="true" />
+                <asp:BoundField DataField="idCodigo" Visible="False" />
+                <asp:BoundField DataField="nombre" HeaderText="Nombre Usuario" Visible="true" />
             </Columns>
         </asp:GridView>
          
@@ -75,7 +75,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <asp:Button ID="btnDelete" runat="server" OnClick="" Text="Borrar" />
+          <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Borrar" />
       </div>
     </div>
   </div>

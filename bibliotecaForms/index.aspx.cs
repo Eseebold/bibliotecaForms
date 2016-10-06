@@ -22,8 +22,8 @@ namespace bibliotecaForms
         {
             try
             {
-                string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-                string SQL = "SELECT * FROM usuarios";
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["gestionBibliotecaConnectionString"].ConnectionString;
+                string SQL = "SELECT * FROM dbo.[usuario]";
                 SqlConnection conn = new SqlConnection(cadenaConexion);
                 conn.Open();
                 DataSet ds = new DataSet();
@@ -31,21 +31,21 @@ namespace bibliotecaForms
                 dAdapter.Fill(ds);
                 dt = ds.Tables[0];
 
-                grdv_Usuarios.DataSource = dt;
-                grdv_Usuarios.DataBind();
+                grdv_Usuario.DataSource = dt;
+                grdv_Usuario.DataBind();
                 conn.Close();
             }
             catch (SqlException ex)
             {
-                Console.Error.Write(ex.Message);
+                Console.Error.Write(ex.Message+"1");
             }
         }
 
-        protected void grdv_Usuarios_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void grdv_Usuario_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string comand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
-            string codigo = grdv_Usuarios.DataKeys[index].Value.ToString();
+            string codigo = grdv_Usuario.DataKeys[index].Value.ToString();
 
             switch (comand)
             {
@@ -80,13 +80,13 @@ namespace bibliotecaForms
         {
             string codigo = lblIdUsuario.Text;
             string nombre = txtNombreUsuario.Text;
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["gestionBibliotecaConnectionString"].ConnectionString;
             int cod;
 
-            string SQL = "INSERT INTO usuarios(nombreUsuario) VALUES(" + nombre + ")";
+            string SQL = "INSERT INTO usuario(nombreUsuario) VALUES(" + nombre + ")";
             if (Int32.TryParse(codigo, out cod) && cod > -1)
             {
-                SQL = "UPDATE usuarios SET nombreUsuario = '" + nombre + "' WHERE codigoUsuario =" + codigo;
+                SQL = "UPDATE usuario SET nombreUsuario = '" + nombre + "' WHERE codigoUsuario =" + codigo;
             }
 
             SqlConnection conn = null;
@@ -103,7 +103,7 @@ namespace bibliotecaForms
             }
             catch (SqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message+"2");
             }
             finally
             {
@@ -120,10 +120,10 @@ namespace bibliotecaForms
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             SqlConnection conn = null;
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["gestionBibliotecaConnectionString"].ConnectionString;
 
             string codigo = txtIdUsuario.Text;
-            string SQL = "DELETE FROM usuarios WHERE codigoUsuario=" + codigo;
+            string SQL = "DELETE FROM dbo.[usuario] WHERE codigoUsuario=" + codigo;
             try
             {
                 conn = new SqlConnection(cadenaConexion);
@@ -137,7 +137,7 @@ namespace bibliotecaForms
             }
             catch (SqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message + "3");
             }
             finally
             {
